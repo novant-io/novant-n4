@@ -19,85 +19,126 @@ import com.tridium.ndriver.util.SfUtil;
 
 import io.novant.point.*;
 
-
 /**
- *  BNovantDevice models a single device
- *
- *  @author   Novant LLC
- *  @creation 13-May-21
+ * BNovantDevice models a single Novant device.
  */
 @NiagaraType
-@NiagaraProperty(name = "pollFrequency", type = "BPollFrequency",  defaultValue = "BPollFrequency.normal")
-@NiagaraProperty(name = "points", type = "BNovantPointDeviceExt",  defaultValue = "new BNovantPointDeviceExt()")
+@NiagaraProperty(name="apiKey", type="BString", defaultValue="")
+@NiagaraProperty(name="deviceId", type="BString", defaultValue="")
+@NiagaraProperty(name="pollFrequency", type="BPollFrequency", defaultValue="BPollFrequency.normal")
+@NiagaraProperty(name="points", type="BNovantPointDeviceExt", defaultValue="new BNovantPointDeviceExt()")
 public class BNovantDevice
   extends BNDevice
   implements BINPollable
 {
-
   // Add facet to include following in auto manager view
   public static final Property status = newProperty(Flags.TRANSIENT|Flags.READONLY|Flags.SUMMARY|Flags.DEFAULT_ON_CLONE, BStatus.ok, SfUtil.incl(SfUtil.MGR_EDIT_READONLY));
 
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
+/*@ $io.novant.BNovantDevice(4174228318)1.0$ @*/
+/* Generated Thu May 13 16:44:35 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
+
+////////////////////////////////////////////////////////////////
+// Property "apiKey"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code apiKey} property.
+   * @see #getApiKey
+   * @see #setApiKey
+   */
+  public static final Property apiKey = newProperty(0, "", null);
+
+  /**
+   * Get the {@code apiKey} property.
+   * @see #apiKey
+   */
+  public String getApiKey() { return getString(apiKey); }
+
+  /**
+   * Set the {@code apiKey} property.
+   * @see #apiKey
+   */
+  public void setApiKey(String v) { setString(apiKey, v, null); }
+
+////////////////////////////////////////////////////////////////
+// Property "deviceId"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code deviceId} property.
+   * @see #getDeviceId
+   * @see #setDeviceId
+   */
+  public static final Property deviceId = newProperty(0, "", null);
+
+  /**
+   * Get the {@code deviceId} property.
+   * @see #deviceId
+   */
+  public String getDeviceId() { return getString(deviceId); }
+
+  /**
+   * Set the {@code deviceId} property.
+   * @see #deviceId
+   */
+  public void setDeviceId(String v) { setString(deviceId, v, null); }
 
 ////////////////////////////////////////////////////////////////
 // Property "pollFrequency"
 ////////////////////////////////////////////////////////////////
 
   /**
-   * Slot for the <code>pollFrequency</code> property.
-   * How frequently the device is polled for data
-   * @see io.novant.BNovantDevice#getPollFrequency
-   * @see io.novant.BNovantDevice#setPollFrequency
+   * Slot for the {@code pollFrequency} property.
+   * @see #getPollFrequency
+   * @see #setPollFrequency
    */
-  public static final Property pollFrequency = newProperty(0, BPollFrequency.normal,null);
+  public static final Property pollFrequency = newProperty(0, BPollFrequency.normal, null);
 
   /**
-   * Get the <code>pollFrequency</code> property.
-   * How frequently the device is polled for data
-   * @see io.novant.BNovantDevice#pollFrequency
+   * Get the {@code pollFrequency} property.
+   * @see #pollFrequency
    */
   public BPollFrequency getPollFrequency() { return (BPollFrequency)get(pollFrequency); }
 
   /**
-   * Set the <code>pollFrequency</code> property.
-   * How frequently the device is polled for data
-   * @see io.novant.BNovantDevice#pollFrequency
+   * Set the {@code pollFrequency} property.
+   * @see #pollFrequency
    */
-  public void setPollFrequency(BPollFrequency v) { set(pollFrequency,v,null); }
+  public void setPollFrequency(BPollFrequency v) { set(pollFrequency, v, null); }
 
 ////////////////////////////////////////////////////////////////
 // Property "points"
 ////////////////////////////////////////////////////////////////
 
   /**
-   * Slot for the <code>points</code> property.
-   * @see io.novant.BNovantDevice#getPoints
-   * @see io.novant.BNovantDevice#setPoints
+   * Slot for the {@code points} property.
+   * @see #getPoints
+   * @see #setPoints
    */
-  public static final Property points = newProperty(0, new BNovantPointDeviceExt(),null);
+  public static final Property points = newProperty(0, new BNovantPointDeviceExt(), null);
 
   /**
-   * Get the <code>points</code> property.
-   * @see io.novant.BNovantDevice#points
+   * Get the {@code points} property.
+   * @see #points
    */
   public BNovantPointDeviceExt getPoints() { return (BNovantPointDeviceExt)get(points); }
 
   /**
-   * Set the <code>points</code> property.
-   * @see io.novant.BNovantDevice#points
+   * Set the {@code points} property.
+   * @see #points
    */
-  public void setPoints(BNovantPointDeviceExt v) { set(points,v,null); }
-
+  public void setPoints(BNovantPointDeviceExt v) { set(points, v, null); }
 
 ////////////////////////////////////////////////////////////////
 // Type
 ////////////////////////////////////////////////////////////////
 
+  @Override
   public Type getType() { return TYPE; }
   public static final Type TYPE = Sys.loadType(BNovantDevice.class);
 
 /*+ ------------ END BAJA AUTO GENERATED CODE -------------- +*/
-
 
 ////////////////////////////////////////////////////////////////
 // Overrides
@@ -108,7 +149,6 @@ public class BNovantDevice
    * @return Type object representing the network
    */
   public Type getNetworkType() { return BNovantNetwork.TYPE; }
-
 
   /**
    * Override started
@@ -133,10 +173,10 @@ public class BNovantDevice
     super.stopped();
   }
 
-
 ////////////////////////////////////////////////////////////////
 // Implementation
 ////////////////////////////////////////////////////////////////
+
   /**
    *
    */
@@ -148,7 +188,6 @@ public class BNovantDevice
     // else
     //  pingFail("not receiving response from device ");
   }
-
 
 ////////////////////////////////////////////////////////////////
 // Polling support
@@ -166,6 +205,7 @@ public class BNovantDevice
 ////////////////////////////////////////////////////////////////
 // Utilities
 ////////////////////////////////////////////////////////////////
+
   /**
    * Get the network cast to a BNovantNetwork.
    * @return network as a BNovantNetwork.
@@ -174,7 +214,4 @@ public class BNovantDevice
   {
     return (BNovantNetwork)getNetwork();
   }
-
-
-
 }

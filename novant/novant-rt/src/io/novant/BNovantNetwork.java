@@ -24,8 +24,7 @@ import com.tridium.ndriver.poll.*;
  * BNovantNetwork models a network of Novant devices
  */
 @NiagaraType
-  @NiagaraProperty(name = "pollScheduler", type = "BNPollScheduler",  defaultValue = "new BNPollScheduler()")
-
+@NiagaraProperty(name="pollScheduler", type="BNPollScheduler", defaultValue="new BNPollScheduler()")
 public class BNovantNetwork
   extends BNNetwork
 {
