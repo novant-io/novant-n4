@@ -1,0 +1,11 @@
+<!--
+  Copyright 2021 Novant, All Rights Reserved.
+ -->
+<!-- Types -->
+<types>
+
+<!-- test.io.novant -->
+<type name="NovantNMessageTest" class="test.io.novant.BNovantNMessageTest" />
+<type name="NovantPointDiscoveryExtTest" class="test.io.novant.BNovantPointDiscoveryExtTest" />
+
+</types>

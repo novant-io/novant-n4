@@ -1,0 +1,15 @@
+<!--
+  Copyright 2021 Novant, All Rights Reserved.
+ -->
+<?xml version="1.0" encoding="UTF-8"?>
+<bajaObjectGraph version="1.0">
+<p m="b=baja" t="b:UnrestrictedFolder">
+
+ <p n="NovantNetwork" m="x=novant" t="x:NovantNetwork"/>
+ <p n="NovantDevice" t="x:NovantDevice"/>
+ <p n="NovantDeviceFolder" t="x:NovantDeviceFolder"/>
+
+ <p n="NovantPointFolder" t="x:NovantPointFolder"/>
+
+</p>
+</bajaObjectGraph>

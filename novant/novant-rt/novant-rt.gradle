@@ -1,0 +1,31 @@
+/*
+ * Copyright 2021 Novant, All Rights Reserved.
+ */
+description = "Novant Driver"
+
+ext {
+  name            = "novant"
+  project.group   = "Novant"
+  project.version = "0.1"
+}
+
+niagaraModule {
+  preferredSymbol = "nv"
+  moduleName = "novant"
+  runtimeProfile = "rt"
+}
+
+dependencies {
+  compile "Tridium:baja:4.0" 
+  compile "Tridium:nre:4.0" 
+  compile "Tridium:alarm-rt:4.0"
+  compile "Tridium:driver-rt:4.0"
+  compile "Tridium:control-rt:4.0"
+  compile "Tridium:ndriver-rt:4.0"
+
+}
+
+moduleTestJar {
+  from('srcTest') {
+  }
+}

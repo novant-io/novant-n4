@@ -1,0 +1,19 @@
+<!--
+  Copyright 2021 Novant, All Rights Reserved.
+ -->
+<!-- Types -->
+<types>
+
+<!-- io.novant -->
+<type name="NovantNetwork" class="io.novant.BNovantNetwork" />
+<type name="NovantDevice" class="io.novant.BNovantDevice" />
+<type name="NovantDeviceFolder" class="io.novant.BNovantDeviceFolder" />
+
+<!-- io.novant.point -->
+<type name="NovantPointDeviceExt" class="io.novant.point.BNovantPointDeviceExt" />
+<type name="NovantPointFolder" class="io.novant.point.BNovantPointFolder" />
+<type name="NovantProxyExt" class="io.novant.point.BNovantProxyExt" />
+<type name="NovantPointDiscoveryPreferences" class="io.novant.point.BNovantPointDiscoveryPreferences" />
+<type name="NovantPointDiscoveryLeaf" class="io.novant.point.BNovantPointDiscoveryLeaf" />
+
+</types>
