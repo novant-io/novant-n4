@@ -178,15 +178,13 @@ public class BNovantDevice
 ////////////////////////////////////////////////////////////////
 
   /**
-   *
+   * Callback for ping() action.
    */
   public void doPing()
   {
-    // TODO - add ping implementation
-    // if()
-      pingOk();
-    // else
-    //  pingFail("not receiving response from device ");
+    System.out.println("# NovantDevice.doPing {" + getDeviceId() + "}");
+    pingOk();
+    // pingFail("Ping failed blah blah");
   }
 
 ////////////////////////////////////////////////////////////////
@@ -199,7 +197,13 @@ public class BNovantDevice
    */
   public void doPoll()
   {
-    // TODO add poll support
+    // throttle down our polls to 1min
+    long now = System.nanoTime();
+    if (now - lastPoll > ticks1min)
+    {
+      this.lastPoll = now;
+      System.out.println("# NovantDevice.onPoll {" + getDeviceId() + "}");
+    }
   }
 
 ////////////////////////////////////////////////////////////////
@@ -214,4 +218,13 @@ public class BNovantDevice
   {
     return (BNovantNetwork)getNetwork();
   }
+
+////////////////////////////////////////////////////////////////
+// Fields
+////////////////////////////////////////////////////////////////
+
+  private static final long ticks1min = 60000000000L;
+  private static final long ticks5min = ticks1min * 5L;
+
+  private long lastPoll = 0L;
 }

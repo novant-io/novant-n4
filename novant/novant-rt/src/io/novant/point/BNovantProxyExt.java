@@ -17,18 +17,13 @@ import javax.baja.nre.annotations.*;
 import io.novant.*;
 import com.tridium.driver.util.DrUtil;
 
-
 /**
  * BNovantProxyExt
- *
- *  @author   Novant LLC
- * @creation 13-May-21
  */
 @NiagaraType
 public class BNovantProxyExt
   extends BNProxyExt
 {
-
   // Override ProxyExt default status to clear stale state.
   // public static final Property status = newProperty(Flags.READONLY|Flags.TRANSIENT, BStatus.ok, null);
 
@@ -42,8 +37,6 @@ public class BNovantProxyExt
   public static final Type TYPE = Sys.loadType(BNovantProxyExt.class);
 
 /*+ ------------ END BAJA AUTO GENERATED CODE -------------- +*/
-
-
 
 ////////////////////////////////////////////////////////////////
 // Access
@@ -76,6 +69,7 @@ public class BNovantProxyExt
 ////////////////////////////////////////////////////////////////
 // ProxyExt
 ////////////////////////////////////////////////////////////////
+
   public void readSubscribed(Context cx)
     throws Exception
   {
@@ -131,5 +125,4 @@ public class BNovantProxyExt
   {
     return getParentPoint().getOutStatusValue() instanceof BStatusEnum;
   }
-
 }
