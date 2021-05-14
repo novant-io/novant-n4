@@ -24,7 +24,7 @@ import io.novant.point.*;
  */
 @NiagaraType
 @NiagaraProperty(name="apiKey", type="BString", defaultValue="")
-@NiagaraProperty(name="deviceId", type="BString", defaultValue="")
+@NiagaraProperty(name="deviceId", type="BString", defaultValue="", flags=Flags.SUMMARY)
 @NiagaraProperty(name="pollFrequency", type="BPollFrequency", defaultValue="BPollFrequency.normal")
 @NiagaraProperty(name="points", type="BNovantPointDeviceExt", defaultValue="new BNovantPointDeviceExt()")
 public class BNovantDevice
@@ -35,8 +35,8 @@ public class BNovantDevice
   public static final Property status = newProperty(Flags.TRANSIENT|Flags.READONLY|Flags.SUMMARY|Flags.DEFAULT_ON_CLONE, BStatus.ok, SfUtil.incl(SfUtil.MGR_EDIT_READONLY));
 
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
-/*@ $io.novant.BNovantDevice(4174228318)1.0$ @*/
-/* Generated Thu May 13 16:44:35 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
+/*@ $io.novant.BNovantDevice(4046366321)1.0$ @*/
+/* Generated Fri May 14 14:18:53 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
 
 ////////////////////////////////////////////////////////////////
 // Property "apiKey"
@@ -70,7 +70,7 @@ public class BNovantDevice
    * @see #getDeviceId
    * @see #setDeviceId
    */
-  public static final Property deviceId = newProperty(0, "", null);
+  public static final Property deviceId = newProperty(Flags.SUMMARY, "", null);
 
   /**
    * Get the {@code deviceId} property.

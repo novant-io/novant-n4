@@ -9,36 +9,25 @@
 package io.novant.point;
 
 import javax.baja.sys.*;
-
-
+import javax.baja.nre.annotations.*;
 import com.tridium.ndriver.discover.*;
 import com.tridium.ndriver.point.*;
-
-
 import io.novant.*;
-import javax.baja.nre.annotations.*;
+import io.novant.util.*;
 
 /**
  * BNovantPointDeviceExt is a container for novant proxy points.
- *
- * @author   Novant LLC
- * @creation 13-May-21
  */
 @NiagaraType
-
 @NiagaraProperty(
   name = "discoveryPreferences",
   type = "BNovantPointDiscoveryPreferences",
   defaultValue = "new BNovantPointDiscoveryPreferences()",
   override = true
 )
-
 public class BNovantPointDeviceExt
-
-
   extends BNPointDeviceExt
 {
-
 
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
 
@@ -50,8 +39,6 @@ public class BNovantPointDeviceExt
   public static final Type TYPE = Sys.loadType(BNovantPointDeviceExt.class);
 
 /*+ ------------ END BAJA AUTO GENERATED CODE -------------- +*/
-
-
 
 ////////////////////////////////////////////////////////////////
 // Access
@@ -103,7 +90,6 @@ public class BNovantPointDeviceExt
     return BNovantProxyExt.TYPE;
   }
 
-
 ////////////////////////////////////////////////////////////////
 //BINDiscoveryHost
 ////////////////////////////////////////////////////////////////
@@ -113,6 +99,12 @@ public class BNovantPointDeviceExt
   public BINDiscoveryObject[] getDiscoveryObjects(BNDiscoveryPreferences prefs)
       throws Exception
   {
+    BNovantDevice dev = getNovantDevice();
+
+System.out.println("### NovantClient.points");
+    NovantClient c = new NovantClient(dev.getApiKey());
+    String r = c.points(dev.getDeviceId());
+System.out.println("### " + r);
      //
      // TODO  get array of discovery objects
      //
@@ -122,5 +114,4 @@ public class BNovantPointDeviceExt
 //    return (??[])a.trim();
     return null;
   }
-
 }
