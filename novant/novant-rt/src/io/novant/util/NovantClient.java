@@ -11,6 +11,7 @@ package io.novant.util;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.nio.charset.StandardCharsets;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
@@ -45,6 +46,11 @@ public final class NovantClient
     HttpsURLConnection c = null;
     try
     {
+      // generate auth header
+      String auth = apiKey + ":";
+      byte[] authBytes  = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
+      String authHeader = "Basic " + new String(authBytes);
+
       // setup connection
       URL url = new URL("https://api.novant.io/v1/" + endpoint);
       c = (HttpsURLConnection)url.openConnection();
@@ -58,6 +64,7 @@ public final class NovantClient
       c.setDoInput(true);
       c.setRequestProperty("Connection", "Close");
       c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+      c.setRequestProperty("Authorization", authHeader);
       c.connect();
 
       // post form
