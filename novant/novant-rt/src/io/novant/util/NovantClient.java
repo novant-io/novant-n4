@@ -12,7 +12,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import javax.net.ssl.HttpsURLConnection;
-// import javax.net.ssl.SSLSocketFactory;
 
 /**
  * NovantClient provides support for the Novant REST API.
@@ -46,6 +45,7 @@ public final class NovantClient
       c.setInstanceFollowRedirects(false);
       c.setConnectTimeout(30000);  // 30sec
       c.setReadTimeout(30000);     // 30sec
+      // c.setUseCaches(false);
 
       c.setDoOutput(true);
       c.setDoInput(true);
