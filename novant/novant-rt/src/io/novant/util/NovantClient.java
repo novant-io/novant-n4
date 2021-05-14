@@ -31,6 +31,13 @@ public final class NovantClient
     return call("points", "device_id=" + deviceId);
   }
 
+  /** Query for value data for given device. */
+  public String values(String deviceId)
+    throws IOException
+  {
+    return call("values", "device_id=" + deviceId);
+  }
+
   /** Invoke a API call and return results. */
   private String call(String endpoint, String form)
     throws IOException

@@ -12,12 +12,11 @@ import javax.baja.driver.util.BPollFrequency;
 import javax.baja.status.BStatus;
 import javax.baja.sys.*;
 import javax.baja.nre.annotations.*;
-
 import com.tridium.ndriver.BNDevice;
 import com.tridium.ndriver.poll.BINPollable;
 import com.tridium.ndriver.util.SfUtil;
-
 import io.novant.point.*;
+import io.novant.util.*;
 
 /**
  * BNovantDevice models a single Novant device.
@@ -203,6 +202,23 @@ public class BNovantDevice
     {
       this.lastPoll = now;
       System.out.println("# NovantDevice.onPoll {" + getDeviceId() + "}");
+      doUpdateVals();
+    }
+  }
+
+  /** Callback to update values for points. */
+  private void doUpdateVals()
+  {
+    try
+    {
+System.out.println("### NovantClient.values {" + getDeviceId() + "}");
+    NovantClient c = new NovantClient(getApiKey());
+    String r = c.points(getDeviceId());
+System.out.println("### " + r);
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
     }
   }
 
