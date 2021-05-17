@@ -102,7 +102,7 @@ public class BNovantPointDeviceExt
     BNovantDevice dev = getNovantDevice();
 
 System.out.println("### NovantClient.points");
-    NovantClient c = new NovantClient(dev.getApiKey());
+    NovantClient c = new NovantClient(dev.getApiKeyPlainText());
     String r = c.points(dev.getDeviceId());
 System.out.println("### " + r);
      //

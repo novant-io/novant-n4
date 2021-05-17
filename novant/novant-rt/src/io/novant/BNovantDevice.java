@@ -8,7 +8,9 @@
 
 package io.novant;
 
+import java.security.*;
 import javax.baja.driver.util.BPollFrequency;
+import javax.baja.security.BPassword;
 import javax.baja.status.BStatus;
 import javax.baja.sys.*;
 import javax.baja.nre.annotations.*;
@@ -24,8 +26,8 @@ import io.novant.util.*;
 @NiagaraType
 @NiagaraProperty(
   name = "apiKey",
-  type = "BString",
-  defaultValue= "",
+  type = "BPassword",
+  defaultValue= "BPassword.DEFAULT",
   facets = { @Facet("SfUtil.incl(SfUtil.MGR_EDIT)") })
 @NiagaraProperty(
   name = "deviceId",
@@ -61,19 +63,19 @@ public class BNovantDevice
    * @see #getApiKey
    * @see #setApiKey
    */
-  public static final Property apiKey = newProperty(0, "", SfUtil.incl(SfUtil.MGR_EDIT));
+  public static final Property apiKey = newProperty(0, BPassword.DEFAULT, SfUtil.incl(SfUtil.MGR_EDIT));
 
   /**
    * Get the {@code apiKey} property.
    * @see #apiKey
    */
-  public String getApiKey() { return getString(apiKey); }
+  public BPassword getApiKey() { return (BPassword)get(apiKey); }
 
   /**
    * Set the {@code apiKey} property.
    * @see #apiKey
    */
-  public void setApiKey(String v) { setString(apiKey, v, null); }
+  public void setApiKey(BPassword v) { set(apiKey, v, null); }
 
 ////////////////////////////////////////////////////////////////
 // Property "deviceId"
@@ -227,7 +229,7 @@ public class BNovantDevice
     try
     {
 System.out.println("### NovantClient.values {" + getDeviceId() + "}");
-    NovantClient c = new NovantClient(getApiKey());
+    NovantClient c = new NovantClient(getApiKeyPlainText());
     String r = c.points(getDeviceId());
 System.out.println("### " + r);
     }
@@ -248,6 +250,13 @@ System.out.println("### " + r);
   public final BNovantNetwork getNovantNetwork()
   {
     return (BNovantNetwork)getNetwork();
+  }
+
+  /** Get API key as plaintext. */
+  public final String getApiKeyPlainText()
+  {
+    BPassword p = getApiKey();
+    return AccessController.doPrivileged((PrivilegedAction<String>)p::getValue);
   }
 
 ////////////////////////////////////////////////////////////////
