@@ -22,10 +22,25 @@ import io.novant.util.*;
  * BNovantDevice models a single Novant device.
  */
 @NiagaraType
-@NiagaraProperty(name="apiKey", type="BString", defaultValue="")
-@NiagaraProperty(name="deviceId", type="BString", defaultValue="", flags=Flags.SUMMARY)
-@NiagaraProperty(name="pollFrequency", type="BPollFrequency", defaultValue="BPollFrequency.normal")
-@NiagaraProperty(name="points", type="BNovantPointDeviceExt", defaultValue="new BNovantPointDeviceExt()")
+@NiagaraProperty(
+  name = "apiKey",
+  type = "BString",
+  defaultValue= "",
+  facets = { @Facet("SfUtil.incl(SfUtil.MGR_EDIT)") })
+@NiagaraProperty(
+  name = "deviceId",
+  type = "BString",
+  defaultValue = "",
+  flags = Flags.SUMMARY,
+  facets = { @Facet("SfUtil.incl(SfUtil.MGR_EDIT)") })
+@NiagaraProperty(
+  name = "pollFrequency",
+  type = "BPollFrequency",
+  defaultValue = "BPollFrequency.normal")
+@NiagaraProperty(
+  name = "points",
+  type = "BNovantPointDeviceExt",
+  defaultValue = "new BNovantPointDeviceExt()")
 public class BNovantDevice
   extends BNDevice
   implements BINPollable
@@ -46,7 +61,7 @@ public class BNovantDevice
    * @see #getApiKey
    * @see #setApiKey
    */
-  public static final Property apiKey = newProperty(0, "", null);
+  public static final Property apiKey = newProperty(0, "", SfUtil.incl(SfUtil.MGR_EDIT));
 
   /**
    * Get the {@code apiKey} property.
@@ -69,7 +84,7 @@ public class BNovantDevice
    * @see #getDeviceId
    * @see #setDeviceId
    */
-  public static final Property deviceId = newProperty(Flags.SUMMARY, "", null);
+  public static final Property deviceId = newProperty(Flags.SUMMARY, "", SfUtil.incl(SfUtil.MGR_EDIT));
 
   /**
    * Get the {@code deviceId} property.
