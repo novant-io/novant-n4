@@ -228,10 +228,10 @@ public class BNovantDevice
   {
     try
     {
-System.out.println("### NovantClient.values {" + getDeviceId() + "}");
-    NovantClient c = new NovantClient(getApiKeyPlainText());
-    String r = c.points(getDeviceId());
-System.out.println("### " + r);
+//System.out.println("### NovantClient.values {" + getDeviceId() + "}");
+//    NovantClient c = new NovantClient(getApiKeyPlainText());
+//    String r = c.points(getDeviceId());
+//System.out.println("### " + r);
     }
     catch (Exception e)
     {

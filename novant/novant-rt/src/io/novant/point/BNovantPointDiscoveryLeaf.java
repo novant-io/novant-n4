@@ -37,24 +37,25 @@ import com.tridium.ndriver.discover.BNPointDiscoveryLeaf;
 import com.tridium.ndriver.util.SfUtil;
 
 /**
- * BNovantPointDiscoveryLeaf is container class for point elements to display in
- * point discovery pane and pass to new point callback.
- *
- * @author Novant LLC
- * @creation 13-May-21
+ * BNovantPointDiscoveryLeaf is container class for point elements to
+ * display in point discovery pane and pass to new point callback.
  */
 @NiagaraType
-  @NiagaraProperty(name = "statusValue", type = "BStatusValue",  defaultValue = "new BStatusNumeric()", flags = Flags.READONLY)
-  @NiagaraProperty(name = "facets",
-                     type = "BFacets",
-                     defaultValue = "BFacets.DEFAULT",
-                     flags = Flags.READONLY,
-                     facets = { @Facet(name = "SfUtil.KEY_MGR", value = "SfUtil.MGR_UNSEEN" ) } )
+@NiagaraProperty(
+  name = "statusValue",
+  type = "BStatusValue",
+  defaultValue = "new BStatusNumeric()",
+  flags = Flags.READONLY)
+@NiagaraProperty(
+  name = "facets",
+  type = "BFacets",
+  defaultValue = "BFacets.DEFAULT",
+  flags = Flags.READONLY,
+  facets = { @Facet(name="SfUtil.KEY_MGR", value="SfUtil.MGR_UNSEEN")})
 public class BNovantPointDiscoveryLeaf
     extends BNPointDiscoveryLeaf
 {
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
-
 
 ////////////////////////////////////////////////////////////////
 // Property "statusValue"
@@ -105,7 +106,6 @@ public class BNovantPointDiscoveryLeaf
 
   public BNovantPointDiscoveryLeaf() {}
 
-
   /* Return TypeInfo for valid new objects - match proxy type to statusValue type. */
   public TypeInfo[] getValidDatabaseTypes()
   {
@@ -140,7 +140,6 @@ public class BNovantPointDiscoveryLeaf
     return (TypeInfo[])a.trim();
   }
 
-
   /* Call when adding new object based on this discovery leaf.  Initialize proxy. */
   public void updateTarget(BComponent target)
   {
@@ -172,6 +171,4 @@ public class BNovantPointDiscoveryLeaf
 
     return false;
   }
-
-
 }

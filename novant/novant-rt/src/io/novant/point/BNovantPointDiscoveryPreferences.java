@@ -13,6 +13,9 @@ import javax.baja.nre.annotations.*;
 
 import com.tridium.ndriver.discover.*;
 
+/**
+ * BNovantPointDiscoveryPreferences
+ */
 @NiagaraType
 public class BNovantPointDiscoveryPreferences
   extends BNDiscoveryPreferences
@@ -32,5 +35,4 @@ public class BNovantPointDiscoveryPreferences
   {
     return BNovantPointDiscoveryLeaf.TYPE;
   }
-
 }

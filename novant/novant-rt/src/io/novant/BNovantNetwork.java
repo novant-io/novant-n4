@@ -20,18 +20,34 @@ import com.tridium.ndriver.datatypes.*;
 import com.tridium.ndriver.discover.*;
 import com.tridium.ndriver.poll.*;
 
+import io.novant.point.*;
+
 /**
  * BNovantNetwork models a network of Novant devices
  */
 @NiagaraType
-@NiagaraProperty(name="pollScheduler", type="BNPollScheduler", defaultValue="new BNPollScheduler()")
+@NiagaraProperty(
+  name = "pollScheduler",
+  type = "BNPollScheduler",
+  defaultValue = "new BNPollScheduler()")
+@NiagaraProperty(
+  name = "discoveryPreferences",
+  type = "BNDiscoveryPreferences",
+  defaultValue = "new BNovantPointDiscoveryPreferences()",
+  flags = Flags.HIDDEN)
+@NiagaraAction(
+  name= "submitDiscoveryJob",
+  parameterType = "BNDiscoveryPreferences",
+  defaultValue = "new BNovantPointDiscoveryPreferences()",
+  returnType = "baja:Ord",
+  flags = Flags.HIDDEN)
 public class BNovantNetwork
   extends BNNetwork
 {
 
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
-/*@ $io.novant.BNovantNetwork(514687877)1.0$ @*/
-/* Generated Thu May 13 16:14:49 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
+/*@ $io.novant.BNovantNetwork(3473825091)1.0$ @*/
+/* Generated Mon May 17 14:08:14 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
 
 ////////////////////////////////////////////////////////////////
 // Property "pollScheduler"
@@ -57,14 +73,51 @@ public class BNovantNetwork
   public void setPollScheduler(BNPollScheduler v) { set(pollScheduler, v, null); }
 
 ////////////////////////////////////////////////////////////////
+// Property "discoveryPreferences"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code discoveryPreferences} property.
+   * @see #getDiscoveryPreferences
+   * @see #setDiscoveryPreferences
+   */
+  public static final Property discoveryPreferences = newProperty(Flags.HIDDEN, new BNovantPointDiscoveryPreferences(), null);
+
+  /**
+   * Get the {@code discoveryPreferences} property.
+   * @see #discoveryPreferences
+   */
+  public BNDiscoveryPreferences getDiscoveryPreferences() { return (BNDiscoveryPreferences)get(discoveryPreferences); }
+
+  /**
+   * Set the {@code discoveryPreferences} property.
+   * @see #discoveryPreferences
+   */
+  public void setDiscoveryPreferences(BNDiscoveryPreferences v) { set(discoveryPreferences, v, null); }
+
+////////////////////////////////////////////////////////////////
+// Action "submitDiscoveryJob"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code submitDiscoveryJob} action.
+   * @see #submitDiscoveryJob(BNDiscoveryPreferences parameter)
+   */
+  public static final Action submitDiscoveryJob = newAction(Flags.HIDDEN, new BNovantPointDiscoveryPreferences(), null);
+
+  /**
+   * Invoke the {@code submitDiscoveryJob} action.
+   * @see #submitDiscoveryJob
+   */
+  public BOrd submitDiscoveryJob(BNDiscoveryPreferences parameter) { return (BOrd)invoke(submitDiscoveryJob, parameter, null); }
+
+////////////////////////////////////////////////////////////////
 // Type
 ////////////////////////////////////////////////////////////////
 
   @Override
   public Type getType() { return TYPE; }
   public static final Type TYPE = Sys.loadType(BNovantNetwork.class);
-
-/*+ ------------ END BAJA AUTO GENERATED CODE -------------- +*/
 
   /** Specify name for network resources. */
   public String getNetworkName() { return "NovantNetwork"; }
@@ -94,6 +147,15 @@ public class BNovantNetwork
       // Give any comms opportunity to respond to status changes
       // getHttpConfig().statusUpdate();
     }
+  }
+
+////////////////////////////////////////////////////////////////
+// Discovery
+////////////////////////////////////////////////////////////////
+
+  public BOrd doSubmitDiscoveryJob(BNDiscoveryPreferences preferences)
+  {
+    throw new RuntimeException("NOPE NOT YET!");
   }
 
 ////////////////////////////////////////////////////////////////
