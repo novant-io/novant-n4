@@ -1,11 +1,7 @@
 /*
- * Copyright (c) 2021, Novant LLC
- * Licensed under the MIT License
- *
- * History:
- *   13 May 2021  Andy Frank  Creation
+ * Copyright 2021 Novant, All Rights Reserved.
  */
-description = "Novant Driver"
+description = ""
 
 ext {
   name            = "novant"
@@ -16,22 +12,23 @@ ext {
 niagaraModule {
   preferredSymbol = "nv"
   moduleName = "novant"
-  runtimeProfile = "rt"
-
-  modulePart {
-    name = "novant-wb"
-    runtimeProfile = "wb"
-  }
+  runtimeProfile = "wb"
 }
 
 dependencies {
   compile "Tridium:baja:4.0" 
   compile "Tridium:nre:4.0" 
+  compile "Tridium:gx-rt:4.0" 
+  compile "Tridium:gx-wb:4.0" 
+  compile "Tridium:bajaui-wb:4.0" 
   compile "Tridium:alarm-rt:4.0"
+  compile "Tridium:driver-wb:4.0"
   compile "Tridium:driver-rt:4.0"
   compile "Tridium:control-rt:4.0"
   compile "Tridium:ndriver-rt:4.0"
-
+  compile "Tridium:ndriver-wb:4.0"
+  compile "Tridium:workbench-wb:4.0"
+  compile project(":novant-rt")
 }
 
 moduleTestJar {
