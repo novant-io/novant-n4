@@ -40,6 +40,9 @@ public final class JsonReader
       this.peek = in.read();
     }
 
+    // eat leading whitespace
+    eatWhitespace();
+
     // bool
     if (peek == 't') return readBool();
     if (peek == 'f') return readBool();
@@ -50,6 +53,9 @@ public final class JsonReader
 
     // str
     if (peek == '\"') return readStr();
+
+    // map
+    if (peek == '{') return readMap();
 
     throw unexpectedChar(peek);
   }
@@ -89,15 +95,41 @@ public final class JsonReader
   private String readStr() throws IOException
   {
     StringBuffer buf = new StringBuffer();
-    read(); // eat "
+    read('\"');
     while (peek != '\"')
     {
       // TODO: yeah fix this!
       if (peek == '\\') buf.append((char)read());
       buf.append((char)read());
     }
-    read(); // eat "
+    read('\"');
     return buf.toString();
+  }
+
+  /** Read a HashMap value. */
+  private HashMap readMap() throws IOException
+  {
+    HashMap map = new HashMap();
+    read('{');
+    while (peek != '}')
+    {
+      // add key:value pair
+      eatWhitespace();
+      String key = readStr();
+      eatWhitespace();
+      read(':');
+      eatWhitespace();
+      Object val = readVal();
+      map.put(key, val);
+
+      // verify next char is valid
+      eatWhitespace();
+      if (peek == ',') { read(); continue; }
+      if (peek == '}') continue;
+      throw unexpectedChar(peek);
+    }
+    read('}');
+    return map;
   }
 
   /** Read the next char from stream. */
@@ -105,6 +137,7 @@ public final class JsonReader
   {
     cur  = peek;
     peek = in.read();
+    pos++;
     return cur;
   }
 
@@ -116,13 +149,20 @@ public final class JsonReader
     return ch;
   }
 
+  /** Eat leading whitespace. */
+  private void eatWhitespace() throws IOException
+  {
+    while (peek == ' ') read();
+  }
+
   private IOException unexpectedChar(int ch)
   {
-    return new IOException("Unexpected char '" + ((char)ch) + "'");
+    return new IOException("Unexpected char '" + ((char)ch) + "' [" + pos + "]");
   }
 
   private BufferedReader in;
   private boolean init = false;
   private int cur;
   private int peek;
+  private int pos;
 }
