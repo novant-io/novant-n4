@@ -57,6 +57,9 @@ public final class JsonReader
     // map
     if (peek == '{') return readMap();
 
+    // list
+    if (peek == '[') return readList();
+
     throw unexpectedChar(peek);
   }
 
@@ -104,6 +107,28 @@ public final class JsonReader
     }
     read('\"');
     return buf.toString();
+  }
+
+  /** Read a ArrayList value. */
+  private ArrayList readList() throws IOException
+  {
+    ArrayList list = new ArrayList();
+    read('[');
+    while (peek != ']')
+    {
+      // add key:value pair
+      eatWhitespace();
+      Object val = readVal();
+      list.add(val);
+
+      // verify next char is valid
+      eatWhitespace();
+      if (peek == ',') { read(); continue; }
+      if (peek == ']') continue;
+      throw unexpectedChar(peek);
+    }
+    read(']');
+    return list;
   }
 
   /** Read a HashMap value. */

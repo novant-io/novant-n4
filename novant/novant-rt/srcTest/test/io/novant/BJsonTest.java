@@ -65,9 +65,40 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
     verifyEq(read("\"this has a \\\" quote\""),     "this has a \\\" quote");
   }
 
+  @Test public void testList() throws IOException
+  {
+    verifyEq(read("[]"), new ArrayList());
+    // verifyEq(read("[ ]"), new ArrayList());
+
+    ArrayList a = new ArrayList();
+    a.add(true);
+    a.add(new Double(15));
+    a.add("foo");
+    verifyEq(read("[true,15,\"foo\"]"), a);
+    verifyEq(read("[ true,  15, \"foo\"  ]"), a);
+  }
+
+  @Test public void testListNested() throws IOException
+  {
+    ArrayList a1 = new ArrayList();
+    a1.add(false);
+    a1.add(new Double(-32.5));
+    a1.add("bar");
+
+    ArrayList a = new ArrayList();
+    a.add(true);
+    a.add(new Double(15));
+    a.add("foo");
+    a.add(a1);
+    verifyEq(read("[true, 15, \"foo\"," +
+      "  [false, -32.5, \"bar\"]" +
+      "]"), a);
+  }
+
   @Test public void testMap() throws IOException
   {
     verifyEq(read("{}"), new HashMap());
+    // verifyEq(read("{ }"), new HashMap());
 
     HashMap m = new HashMap();
     m.put("b", Boolean.TRUE);
