@@ -43,17 +43,20 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
   public void beforeMethod() {}
 
   @Test
-  public void testBJsonTest()
+  public void testBJsonTest() throws IOException
   {
-    try
-    {
-      String text = "{ \"b\":true, \"n\":15, \"s\":\"foo\" }";
-      InputStream in = new ByteArrayInputStream(text.getBytes());
-      JsonReader json = new JsonReader(in);
-      HashMap map = json.read();
-      verify(map != null);
-    }
-    catch (Exception e) { fail(); }
+    verifyEq(read("true"),  Boolean.TRUE);
+    verifyEq(read("false"), Boolean.FALSE);
+    verifyEq(read("5"),     new Double(5));
+    verifyEq(read("10572"), new Double(10572));
+    // verifyEq(read("18.4"),  18.4);
+  }
+
+  private Object read(String s) throws IOException
+  {
+    InputStream in = new ByteArrayInputStream(s.getBytes());
+    JsonReader r = new JsonReader(in);
+    return r.readVal();
   }
 
   @AfterMethod
