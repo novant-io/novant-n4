@@ -57,6 +57,14 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
     verifyEq(read("-0.123"), new Double(-0.123));
   }
 
+  @Test public void testStr() throws IOException
+  {
+    verifyEq(read("\"foo\""), "foo");
+    verifyEq(read("\"this has  some   spaces\""), "this has  some   spaces");
+    // TODO: is this test right???
+    verifyEq(read("\"this has a \\\" quote\""),     "this has a \\\" quote");
+  }
+
   private Object read(String s) throws IOException
   {
     InputStream in = new ByteArrayInputStream(s.getBytes());

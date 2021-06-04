@@ -40,11 +40,16 @@ public final class JsonReader
       this.peek = in.read();
     }
 
+    // bool
     if (peek == 't') return readBool();
     if (peek == 'f') return readBool();
 
+    // num
     if (peek == '-') return readNum();
     if (Character.isDigit(peek)) return readNum();
+
+    // str
+    if (peek == '\"') return readStr();
 
     throw unexpectedChar(peek);
   }
@@ -78,6 +83,21 @@ public final class JsonReader
     if (peek == '-') buf.append((char)read());
     while (Character.isDigit(peek) || peek == '.') buf.append((char)read());
     return Double.parseDouble(buf.toString());
+  }
+
+  /** Read a Str value. */
+  private String readStr() throws IOException
+  {
+    StringBuffer buf = new StringBuffer();
+    read(); // eat "
+    while (peek != '\"')
+    {
+      // TODO: yeah fix this!
+      if (peek == '\\') buf.append((char)read());
+      buf.append((char)read());
+    }
+    read(); // eat "
+    return buf.toString();
   }
 
   /** Read the next char from stream. */
