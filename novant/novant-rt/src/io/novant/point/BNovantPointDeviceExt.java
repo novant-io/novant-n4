@@ -12,6 +12,7 @@ import javax.baja.sys.*;
 import javax.baja.nre.annotations.*;
 import com.tridium.ndriver.discover.*;
 import com.tridium.ndriver.point.*;
+
 import io.novant.*;
 import io.novant.util.*;
 
@@ -28,6 +29,8 @@ import io.novant.util.*;
 public class BNovantPointDeviceExt
   extends BNPointDeviceExt
 {
+
+  public static final Property discoveryPreferences = newProperty(Flags.HIDDEN, new BNovantPointDiscoveryPreferences(), null);
 
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
 
