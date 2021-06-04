@@ -43,6 +43,7 @@ public final class JsonReader
     if (peek == 't') return readBool();
     if (peek == 'f') return readBool();
 
+    if (peek == '-') return readNum();
     if (Character.isDigit(peek)) return readNum();
 
     throw unexpectedChar(peek);
@@ -74,7 +75,8 @@ public final class JsonReader
   private Double readNum() throws IOException
   {
     StringBuffer buf = new StringBuffer();
-    while (Character.isDigit(peek)) buf.append((char)read());
+    if (peek == '-') buf.append((char)read());
+    while (Character.isDigit(peek) || peek == '.') buf.append((char)read());
     return Double.parseDouble(buf.toString());
   }
 

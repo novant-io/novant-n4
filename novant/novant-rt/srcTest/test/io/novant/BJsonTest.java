@@ -39,17 +39,22 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
 
 /*+ ------------ END BAJA AUTO GENERATED CODE -------------- +*/
 
-  @BeforeMethod
-  public void beforeMethod() {}
+  @BeforeMethod public void beforeMethod() {}
+  @AfterMethod public void afterMethod() {}
 
-  @Test
-  public void testBJsonTest() throws IOException
+  @Test public void testBool() throws IOException
   {
     verifyEq(read("true"),  Boolean.TRUE);
     verifyEq(read("false"), Boolean.FALSE);
-    verifyEq(read("5"),     new Double(5));
-    verifyEq(read("10572"), new Double(10572));
-    // verifyEq(read("18.4"),  18.4);
+  }
+
+  @Test public void testNum() throws IOException
+  {
+    verifyEq(read("5"),      new Double(5));
+    verifyEq(read("-12"),    new Double(-12));
+    verifyEq(read("10572"),  new Double(10572));
+    verifyEq(read("18.4"),   new Double(18.4));
+    verifyEq(read("-0.123"), new Double(-0.123));
   }
 
   private Object read(String s) throws IOException
@@ -58,7 +63,4 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
     JsonReader r = new JsonReader(in);
     return r.readVal();
   }
-
-  @AfterMethod
-  public void afterMethod() {}
 }
