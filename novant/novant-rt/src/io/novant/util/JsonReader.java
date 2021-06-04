@@ -29,10 +29,18 @@ public final class JsonReader
     return this;
   }
 
-  /** Write given char to output stream. */
-  public Object read() throws IOException
+  /** Parse Json and return HashMap instance. */
+  public HashMap read() throws IOException
   {
-    return "todo";
+    HashMap map = new HashMap();
+    JsonToken tok = nextToken();
+    return map;
+  }
+
+  /** Read the next token or 'null' if EOS */
+  private JsonToken nextToken() throws IOException
+  {
+    return null;
   }
 
   /** JsonToken models tokens read from instream */

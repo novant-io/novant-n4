@@ -5,6 +5,7 @@
 <types>
 
 <!-- test.io.novant -->
+<type name="JsonTest" class="test.io.novant.BJsonTest" />
 <type name="NovantNMessageTest" class="test.io.novant.BNovantNMessageTest" />
 <type name="NovantPointDiscoveryExtTest" class="test.io.novant.BNovantPointDiscoveryExtTest" />
 
