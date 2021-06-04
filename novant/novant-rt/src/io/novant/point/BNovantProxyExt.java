@@ -12,6 +12,7 @@ import javax.baja.sys.*;
 import javax.baja.status.*;
 import javax.baja.driver.point.*;
 import com.tridium.ndriver.point.BNProxyExt;
+import com.tridium.ndriver.util.SfUtil;
 import javax.baja.nre.annotations.*;
 
 import io.novant.*;
@@ -21,18 +22,51 @@ import com.tridium.driver.util.DrUtil;
  * BNovantProxyExt
  */
 @NiagaraType
+@NiagaraProperty(
+  name = "pointId",
+  type = "BString",
+  defaultValue = "",
+  flags = Flags.SUMMARY,
+  facets = { @Facet("SfUtil.incl(SfUtil.MGR_EDIT)") })
 public class BNovantProxyExt
   extends BNProxyExt
 {
   // Override ProxyExt default status to clear stale state.
   // public static final Property status = newProperty(Flags.READONLY|Flags.TRANSIENT, BStatus.ok, null);
 
+
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
+/*@ $io.novant.point.BNovantProxyExt(3300338074)1.0$ @*/
+/* Generated Fri Jun 04 10:27:10 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
+
+////////////////////////////////////////////////////////////////
+// Property "pointId"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code pointId} property.
+   * @see #getPointId
+   * @see #setPointId
+   */
+  public static final Property pointId = newProperty(Flags.SUMMARY, "", SfUtil.incl(SfUtil.MGR_EDIT));
+
+  /**
+   * Get the {@code pointId} property.
+   * @see #pointId
+   */
+  public String getPointId() { return getString(pointId); }
+
+  /**
+   * Set the {@code pointId} property.
+   * @see #pointId
+   */
+  public void setPointId(String v) { setString(pointId, v, null); }
 
 ////////////////////////////////////////////////////////////////
 // Type
 ////////////////////////////////////////////////////////////////
 
+  @Override
   public Type getType() { return TYPE; }
   public static final Type TYPE = Sys.loadType(BNovantProxyExt.class);
 
