@@ -83,6 +83,24 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
     verifyEq(read("{ \"b\":true, \"n\":15, \"s\":\"foo\" }"), m);
   }
 
+  @Test public void testMapNested() throws IOException
+  {
+    HashMap m1 = new HashMap();
+    m1.put("b", Boolean.FALSE);
+    m1.put("n", new Double(-32.5));
+    m1.put("s", "bar");
+
+    HashMap m = new HashMap();
+    m.put("b", Boolean.TRUE);
+    m.put("n", new Double(15));
+    m.put("s", "foo");
+    m.put("m", m1);
+
+    verifyEq(read("{ \"b\":true, \"n\":15, \"s\":\"foo\", \"m\":" +
+                  "  {\"b\":false,\"n\":-32.5,\"s\":\"bar\" }" +
+                  "}"), m);
+  }
+
   private Object read(String s) throws IOException
   {
     InputStream in = new ByteArrayInputStream(s.getBytes());
