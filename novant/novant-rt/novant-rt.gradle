@@ -17,11 +17,6 @@ niagaraModule {
   preferredSymbol = "nv"
   moduleName = "novant"
   runtimeProfile = "rt"
-
-  modulePart {
-    name = "novant-wb"
-    runtimeProfile = "wb"
-  }
 }
 
 dependencies {
