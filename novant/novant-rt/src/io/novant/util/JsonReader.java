@@ -17,9 +17,9 @@ import java.util.*;
 public final class JsonReader
 {
   /** Constructor. */
-  public JsonReader(InputStream in)
+  public JsonReader(InputStream in) throws IOException
   {
-    this.in = new BufferedReader(new InputStreamReader(in));
+    this.in = new BufferedReader(new InputStreamReader(in, "UTF-8"));
   }
 
   /** Close underlying input stream. */
