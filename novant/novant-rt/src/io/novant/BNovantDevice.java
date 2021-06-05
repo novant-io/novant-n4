@@ -9,6 +9,7 @@
 package io.novant;
 
 import java.security.*;
+import java.util.*;
 import javax.baja.driver.util.BPollFrequency;
 import javax.baja.security.BPassword;
 import javax.baja.status.BStatus;
@@ -230,8 +231,14 @@ public class BNovantDevice
     {
       // TODO: pass in point list when supported
       NovantClient c = new NovantClient(getApiKeyPlainText());
-//    String r = c.points(getDeviceId());
-//System.out.println("### " + r);
+      ArrayList vals = c.values(getDeviceId());
+      for (int i=0; i<vals.size(); i++)
+      {
+        HashMap map = (HashMap)vals.get(i);
+        String id   = (String)map.get("id");
+        Object val  = map.get("val");
+        System.out.println("#  " + id + ": " + val);
+      }
     }
     catch (Exception e)
     {

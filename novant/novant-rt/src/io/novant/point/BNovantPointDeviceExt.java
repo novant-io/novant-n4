@@ -104,10 +104,10 @@ public class BNovantPointDeviceExt
   {
     BNovantDevice dev = getNovantDevice();
 
-System.out.println("### NovantClient.points");
-    NovantClient c = new NovantClient(dev.getApiKeyPlainText());
-    String r = c.points(dev.getDeviceId());
-System.out.println("### " + r);
+// System.out.println("### NovantClient.points");
+//     NovantClient c = new NovantClient(dev.getApiKeyPlainText());
+//     String r = c.points(dev.getDeviceId());
+// System.out.println("### " + r);
      //
      // TODO  get array of discovery objects
      //

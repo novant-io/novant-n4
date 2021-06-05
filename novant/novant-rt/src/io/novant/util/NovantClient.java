@@ -25,22 +25,27 @@ public final class NovantClient
     this.apiKey = apiKey;
   }
 
-  /** Query for point data for given device. */
-  public String points(String deviceId)
-    throws IOException
-  {
-    return call("points", "device_id=" + deviceId);
-  }
+  // /** Query for point data for given device. */
+  // public String points(String deviceId)
+  //   throws IOException
+  // {
+  //   return call("points", "device_id=" + deviceId);
+  // }
 
-  /** Query for value data for given device. */
-  public String values(String deviceId)
+  /**
+   * Query for value data for given device, were the return
+   * argument is an ArrayList of HashMap with 'id' and 'val'
+   * keys.
+   */
+  public ArrayList values(String deviceId)
     throws IOException
   {
-    return call("values", "device_id=" + deviceId);
+    HashMap map = (HashMap)call("values", "device_id=" + deviceId);
+    return (ArrayList)map.get("data");
   }
 
   /** Invoke a API call and return results. */
-  private String call(String endpoint, String form)
+  private Object call(String endpoint, String form)
     throws IOException
   {
     HttpsURLConnection c = null;
@@ -77,11 +82,7 @@ public final class NovantClient
         throw new IOException("" + c.getResponseCode() + ": " +c.getResponseMessage());
 
       // read response
-      StringBuffer s = new StringBuffer(1024);
-      Reader r = new BufferedReader(new InputStreamReader(c.getInputStream(), "UTF-8"));
-      int n;
-      while ((n = r.read()) > 0) s.append((char)n);
-      return s.toString();
+      return new JsonReader(c.getInputStream()).readVal();
     }
     catch (Exception err)
     {
