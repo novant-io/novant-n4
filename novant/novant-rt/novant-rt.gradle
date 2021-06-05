@@ -10,7 +10,7 @@ description = "Novant Driver"
 ext {
   name            = "novant"
   project.group   = "Novant"
-  project.version = "0.1"
+  project.version = "0.2"
 }
 
 niagaraModule {
