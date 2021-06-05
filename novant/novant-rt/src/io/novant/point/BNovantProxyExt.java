@@ -104,20 +104,17 @@ public class BNovantProxyExt
 // ProxyExt
 ////////////////////////////////////////////////////////////////
 
-  public void readSubscribed(Context cx)
-    throws Exception
+  public void readSubscribed(Context cx) throws Exception
   {
-    // TODO
+    getBNovantDevice().subscribe(this);
   }
 
-  public void readUnsubscribed(Context cx)
-    throws Exception
+  public void readUnsubscribed(Context cx) throws Exception
   {
-     // TODO
+    getBNovantDevice().unsubscribe(this);
   }
 
-  public boolean write(Context cx)
-    throws Exception
+  public boolean write(Context cx) throws Exception
   {
     // TODO
     return false;
@@ -158,5 +155,19 @@ public class BNovantProxyExt
   public boolean isEnum()
   {
     return getParentPoint().getOutStatusValue() instanceof BStatusEnum;
+  }
+
+  /** Update point value. */
+  public void updateVal(Object val)
+  {
+    if (val instanceof Double)
+    {
+      double dval = ((Double)val).doubleValue();
+      readOk(new BStatusNumeric(dval));
+    }
+    else
+    {
+      readFail("Read failed");
+    }
   }
 }

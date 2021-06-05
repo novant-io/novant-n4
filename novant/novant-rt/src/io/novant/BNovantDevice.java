@@ -229,7 +229,15 @@ public class BNovantDevice
   {
     try
     {
+      System.out.println("#  sub.size: " + subMap.size());
+
+      // short-circuit if no points subscribed
+      if (subMap.size() == 0) return;
+
       // TODO: pass in point list when supported
+      // String pointIds = subMap xxxx
+
+      // request values and update points
       NovantClient c = new NovantClient(getApiKeyPlainText());
       ArrayList vals = c.values(getDeviceId());
       for (int i=0; i<vals.size(); i++)
@@ -237,13 +245,31 @@ public class BNovantDevice
         HashMap map = (HashMap)vals.get(i);
         String id   = (String)map.get("id");
         Object val  = map.get("val");
-        System.out.println("#  " + id + ": " + val);
+
+        BNovantProxyExt p = (BNovantProxyExt)subMap.get(id);
+        if (p != null) p.updateVal(val);
       }
     }
     catch (Exception e)
     {
       e.printStackTrace();
     }
+  }
+
+////////////////////////////////////////////////////////////////
+// Subscriptoin
+////////////////////////////////////////////////////////////////
+
+  /** Subscribe this point */
+  public void subscribe(BNovantProxyExt p)
+  {
+    subMap.put(p.getPointId(), p);
+  }
+
+  /** Unsubscribe this point */
+  public void unsubscribe(BNovantProxyExt p)
+  {
+    subMap.remove(p.getPointId());
   }
 
 ////////////////////////////////////////////////////////////////
@@ -274,4 +300,5 @@ public class BNovantDevice
   private static final long ticks5min = ticks1min * 5L;
 
   private long lastPoll = 0L;
+  private HashMap subMap = new HashMap();
 }
