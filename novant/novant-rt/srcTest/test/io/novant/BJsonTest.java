@@ -132,6 +132,44 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
                   "}"), m);
   }
 
+  @Test public void testValues() throws IOException
+  {
+    String json =
+    "{" +
+    "\"ts\": \"2020-05-10T02:00:00-04:00\"," +
+    "\"size\": 3," +
+    "\"data\": [" +
+    "  { \"id\": \"p1\", \"val\": 5.25 }," +
+    "  { \"id\": \"p2\", \"val\": 7.25 }," +
+    "  { \"id\": \"p3\", \"val\": 3.25 }" +
+    "]" +
+    "}";
+
+    HashMap p1 = new HashMap();
+    p1.put("id", "p1");
+    p1.put("val", new Double(5.25));
+
+    HashMap p2 = new HashMap();
+    p2.put("id", "p2");
+    p2.put("val", new Double(7.25));
+
+    HashMap p3 = new HashMap();
+    p3.put("id", "p3");
+    p3.put("val", new Double(3.25));
+
+    ArrayList data = new ArrayList();
+    data.add(p1);
+    data.add(p2);
+    data.add(p3);
+
+    HashMap map = new HashMap();
+    map.put("ts",   "2020-05-10T02:00:00-04:00");
+    map.put("size", new Double(3));
+    map.put("data", data);
+
+    verifyEq(read(json), map);
+  }
+
   private Object read(String s) throws IOException
   {
     InputStream in = new ByteArrayInputStream(s.getBytes());
