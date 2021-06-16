@@ -163,7 +163,9 @@ public class BNovantProxyExt
     if (val instanceof Double)
     {
       double dval = ((Double)val).doubleValue();
-      readOk(new BStatusNumeric(dval));
+           if (isBoolean()) readOk(new BStatusBoolean(dval > 0));
+      else if (isNumeric()) readOk(new BStatusNumeric(dval));
+      else readFail("Unsupported point type");
     }
     else
     {
