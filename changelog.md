@@ -1,6 +1,8 @@
 # Changelog
 
-## Version 0.2 (working)
+## Version 0.3 (working)
+
+## Version 0.2 (16-Jun-2021)
 * Fix JSON parsing of numbers using `E` notation
 * Fix `ProxyExt` to convert API value to `BStatusBoolean` for bool points
 
