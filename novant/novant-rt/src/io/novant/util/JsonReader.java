@@ -90,7 +90,8 @@ public final class JsonReader
   {
     StringBuffer buf = new StringBuffer();
     if (peek == '-') buf.append((char)read());
-    while (Character.isDigit(peek) || peek == '.') buf.append((char)read());
+    while (Character.isDigit(peek) || peek == '.' || peek == 'E' || peek == '-')
+      buf.append((char)read());
     return Double.parseDouble(buf.toString());
   }
 

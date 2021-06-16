@@ -50,11 +50,13 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
 
   @Test public void testNum() throws IOException
   {
-    verifyEq(read("5"),      new Double(5));
-    verifyEq(read("-12"),    new Double(-12));
-    verifyEq(read("10572"),  new Double(10572));
-    verifyEq(read("18.4"),   new Double(18.4));
-    verifyEq(read("-0.123"), new Double(-0.123));
+    verifyEq(read("5"),        new Double(5));
+    verifyEq(read("-12"),      new Double(-12));
+    verifyEq(read("10572"),    new Double(10572));
+    verifyEq(read("18.4"),     new Double(18.4));
+    verifyEq(read("-0.123"),   new Double(-0.123));
+    verifyEq(read("2.351E8"),  new Double(2.351E8));
+    verifyEq(read("6.195E-4"), new Double(6.195E-4));
   }
 
   @Test public void testStr() throws IOException
