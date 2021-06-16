@@ -134,6 +134,59 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
                   "}"), m);
   }
 
+  @Test public void testPoints() throws IOException
+  {
+    String json =
+    "{" +
+    "\"size\": 1," +
+    "\"sources\": [" +
+    "  {" +
+    "    \"name\": \"Meter A\"," +
+    "    \"size\": 3," +
+    "    \"points\": [" +
+    "      { \"id\":\"p1\", \"name\": \"DI-1\", \"writable\": false }," +
+    "      { \"id\":\"p2\", \"name\": \"DI-2\", \"writable\": false }," +
+    "      { \"id\":\"p3\", \"name\": \"DO-1\", \"writable\": true  }" +
+    "    ]" +
+    "  }" +
+    "]" +
+    "}";
+
+    HashMap p1 = new HashMap();
+    p1.put("id",   "p1");
+    p1.put("name", "DI-1");
+    p1.put("writable", new Boolean(false));
+
+    HashMap p2 = new HashMap();
+    p2.put("id",   "p2");
+    p2.put("name", "DI-2");
+    p2.put("writable", new Boolean(false));
+
+    HashMap p3 = new HashMap();
+    p3.put("id",   "p3");
+    p3.put("name", "DO-1");
+    p3.put("writable", new Boolean(true));
+
+    ArrayList points = new ArrayList();
+    points.add(p1);
+    points.add(p2);
+    points.add(p3);
+
+    HashMap s1 = new HashMap();
+    s1.put("name", "Meter A");
+    s1.put("size", new Double(3));
+    s1.put("points", points);
+
+    ArrayList sources = new ArrayList();
+    sources.add(s1);
+
+    HashMap map = new HashMap();
+    map.put("size", new Double(1));
+    map.put("sources", sources);
+
+    verifyEq(read(json), map);
+  }
+
   @Test public void testValues() throws IOException
   {
     String json =
