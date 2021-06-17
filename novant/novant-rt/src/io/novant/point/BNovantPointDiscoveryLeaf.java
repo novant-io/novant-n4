@@ -45,6 +45,13 @@ import com.tridium.ndriver.util.SfUtil;
   facets = @Facet("SfUtil.incl(SfUtil.MGR_EDIT)")
 )
 @NiagaraProperty(
+  name = "writable",
+  type = "boolean",
+  defaultValue = "false",
+  flags = Flags.READONLY,
+  facets = @Facet("SfUtil.incl(SfUtil.MGR_EDIT)")
+)
+@NiagaraProperty(
   name = "unit",
   type = "String",
   defaultValue = "",
@@ -53,8 +60,8 @@ import com.tridium.ndriver.util.SfUtil;
 public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
 {
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
-/*@ $io.novant.point.BNovantPointDiscoveryLeaf(4004309173)1.0$ @*/
-/* Generated Thu Jun 17 09:57:50 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
+/*@ $io.novant.point.BNovantPointDiscoveryLeaf(1017338950)1.0$ @*/
+/* Generated Thu Jun 17 10:25:43 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
 
 ////////////////////////////////////////////////////////////////
 // Property "pointId"
@@ -126,6 +133,29 @@ public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
   public void setKind(String v) { setString(kind, v, null); }
 
 ////////////////////////////////////////////////////////////////
+// Property "writable"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code writable} property.
+   * @see #getWritable
+   * @see #setWritable
+   */
+  public static final Property writable = newProperty(Flags.READONLY, false, SfUtil.incl(SfUtil.MGR_EDIT));
+
+  /**
+   * Get the {@code writable} property.
+   * @see #writable
+   */
+  public boolean getWritable() { return getBoolean(writable); }
+
+  /**
+   * Set the {@code writable} property.
+   * @see #writable
+   */
+  public void setWritable(boolean v) { setBoolean(writable, v, null); }
+
+////////////////////////////////////////////////////////////////
 // Property "unit"
 ////////////////////////////////////////////////////////////////
 
@@ -168,20 +198,23 @@ public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
   /** Construct new object with API results */
   public BNovantPointDiscoveryLeaf(HashMap map)
   {
-    String id   = (String)map.get("id");
-    String name = (String)map.get("name");
-    String kind = (String)map.get("kind");
-    String unit = (String)map.get("num");
+    String id     = (String)map.get("id");
+    String name   = (String)map.get("name");
+    String kind   = (String)map.get("kind");
+    Boolean write = (Boolean)map.get("writable");
+    String unit   = (String)map.get("num");
 
     // sanity checks
-    if (id   == null) throw new RuntimeException("Missing 'id'");
-    if (name == null) throw new RuntimeException("Missing 'name'");
-    if (kind == null) kind = "num";
-    if (unit == null) unit = "";
+    if (id    == null) throw new RuntimeException("Missing 'id'");
+    if (name  == null) throw new RuntimeException("Missing 'name'");
+    if (kind  == null) kind  = "num";
+    if (write == null) write = Boolean.FALSE;
+    if (unit  == null) unit  = "";
 
     this.setPointId(id);
     this.setPointName(name);
     this.setKind(kind);
+    this.setWritable(write.booleanValue());
     this.setUnit(unit);
   }
 
@@ -194,35 +227,22 @@ public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
   /* Return TypeInfo for valid new objects - match proxy type to statusValue type. */
   public TypeInfo[] getValidDatabaseTypes()
   {
-    Array a = new Array(TypeInfo.class);
-    // BStatusValue sv = getStatusValue();
+    Array acc = new Array(TypeInfo.class);
+    String k = getKind();
+    boolean w = getWritable();
 
-    //
-    // TODO determine valid types for this leaf
-    //
+    if (k.equals("bool"))
+    {
+      acc.add(BBooleanPoint.TYPE.getTypeInfo());
+      if (w) acc.add(BBooleanWritable.TYPE.getTypeInfo());
+    }
+    else
+    {
+      acc.add(BNumericPoint.TYPE.getTypeInfo());
+      if (w) acc.add(BNumericWritable.TYPE.getTypeInfo());
+    }
 
-//    if(sv instanceof BStatusNumeric)
-//    {
-      a.add(BNumericPoint.TYPE.getTypeInfo());
-//      if(writable) a.add(BNumericWritable.TYPE.getTypeInfo());
-//    }
-//    if(sv instanceof BStatusBoolean)
-//    {
-//      a.add(BBooleanPoint.TYPE.getTypeInfo());
-//      if(writable) a.add(BBooleanWritable.TYPE.getTypeInfo());
-//    }
-//    if(sv instanceof BStatusString)
-//    {
-//      a.add(BStringPoint.TYPE.getTypeInfo());
-//      if(writable) a.add(BStringWritable.TYPE.getTypeInfo());
-//    }
-//    if(sv instanceof BStatusEnum)
-//    {
-//      a.add(BEnumPoint.TYPE.getTypeInfo());
-//      if(writable) a.add(BEnumWritable.TYPE.getTypeInfo());
-//    }
-
-    return (TypeInfo[])a.trim();
+    return (TypeInfo[])acc.trim();
   }
 
   /* Call when adding new object based on this discovery leaf.  Initialize proxy. */
