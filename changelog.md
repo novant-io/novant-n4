@@ -2,6 +2,7 @@
 
 ## Version 0.3 (working)
 * Add Point discovery support
+* Fix JsonReader support for unicode strings
 
 ## Version 0.2 (16-Jun-2021)
 * Fix JSON parsing of numbers using `E` notation

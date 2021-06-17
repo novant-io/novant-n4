@@ -102,9 +102,30 @@ public final class JsonReader
     read('\"');
     while (peek != '\"')
     {
-      // TODO: yeah fix this!
-      if (peek == '\\') buf.append((char)read());
-      buf.append((char)read());
+      if (peek == '\\')
+      {
+        int p = read();
+        if (peek == 'u')
+        {
+          read();
+          int n3 = hex(read());
+          int n2 = hex(read());
+          int n1 = hex(read());
+          int n0 = hex(read());
+          int uc = ((n3 << 12) | (n2 << 8) | (n1 << 4) | n0);
+          buf.append((char)uc);
+        }
+        else
+        {
+          // TODO FIXIT!
+          buf.append((char)p);
+          buf.append((char)read());
+        }
+      }
+      else
+      {
+        buf.append((char)read());
+      }
     }
     read('\"');
     return buf.toString();
@@ -171,6 +192,7 @@ public final class JsonReader
   private int read(int expected) throws IOException
   {
     int ch = read();
+    if (ch < 0) throw new IOException("Unexpected EOS");
     if (ch != expected) throw unexpectedChar(ch);
     return ch;
   }
@@ -179,6 +201,15 @@ public final class JsonReader
   private void eatWhitespace() throws IOException
   {
     while (peek == ' ') read();
+  }
+
+  /** Convert hex char to base 10 digit */
+  static int hex(int c)
+  {
+    if ('0' <= c && c <= '9') return c - '0';
+    if ('a' <= c && c <= 'f') return c - 'a' + 10;
+    if ('A' <= c && c <= 'F') return c - 'A' + 10;
+    return -1;
   }
 
   private IOException unexpectedChar(int ch)

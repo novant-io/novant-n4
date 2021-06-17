@@ -62,9 +62,10 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
   @Test public void testStr() throws IOException
   {
     verifyEq(read("\"foo\""), "foo");
+    verifyEq(read("\"Unicode \\u00b0F rocks\""), "Unicode °F rocks");
     verifyEq(read("\"this has  some   spaces\""), "this has  some   spaces");
     // TODO: is this test right???
-    verifyEq(read("\"this has a \\\" quote\""),     "this has a \\\" quote");
+    verifyEq(read("\"this has a \\\" quote\""),   "this has a \\\" quote");
   }
 
   @Test public void testList() throws IOException
@@ -144,9 +145,9 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
     "    \"name\": \"Meter A\"," +
     "    \"size\": 3," +
     "    \"points\": [" +
-    "      { \"id\":\"p1\", \"name\": \"DI-1\", \"writable\": false }," +
-    "      { \"id\":\"p2\", \"name\": \"DI-2\", \"writable\": false }," +
-    "      { \"id\":\"p3\", \"name\": \"DO-1\", \"writable\": true  }" +
+    "      { \"id\":\"p1\", \"name\": \"AI-1\", \"kind\":\"num\", \"writable\": false, \"unit\":\"\\u00b0F\" }," +
+    "      { \"id\":\"p2\", \"name\": \"AI-2\", \"kind\":\"num\", \"writable\": false, \"unit\":\"kW\" }," +
+    "      { \"id\":\"p3\", \"name\": \"DO-1\", \"kind\":\"bool\", \"writable\": true }" +
     "    ]" +
     "  }" +
     "]" +
@@ -154,17 +155,22 @@ public static final Type TYPE = Sys.loadType(BJsonTest.class);
 
     HashMap p1 = new HashMap();
     p1.put("id",   "p1");
-    p1.put("name", "DI-1");
+    p1.put("name", "AI-1");
+    p1.put("kind", "num");
     p1.put("writable", new Boolean(false));
+    p1.put("unit", "°F");
 
     HashMap p2 = new HashMap();
     p2.put("id",   "p2");
-    p2.put("name", "DI-2");
+    p2.put("name", "AI-2");
+    p2.put("kind", "num");
     p2.put("writable", new Boolean(false));
+    p2.put("unit", "kW");
 
     HashMap p3 = new HashMap();
     p3.put("id",   "p3");
     p3.put("name", "DO-1");
+    p3.put("kind", "bool");
     p3.put("writable", new Boolean(true));
 
     ArrayList points = new ArrayList();
