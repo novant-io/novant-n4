@@ -25,16 +25,21 @@ public final class NovantClient
     this.apiKey = apiKey;
   }
 
-  // /** Query for point data for given device. */
-  // public String points(String deviceId)
-  //   throws IOException
-  // {
-  //   return call("points", "device_id=" + deviceId);
-  // }
+  /**
+   * Query for point data for given device, were the return
+   * value is an ArrayList of HashMap sources with 'name'
+   * and 'points' ArrayList of points.
+   */
+  public ArrayList points(String deviceId)
+    throws IOException
+  {
+    HashMap map = (HashMap)call("points", "device_id=" + deviceId);
+    return (ArrayList)map.get("sources");
+  }
 
   /**
    * Query for value data for given device, were the return
-   * argument is an ArrayList of HashMap with 'id' and 'val'
+   * value is an ArrayList of HashMap with 'id' and 'val'
    * keys.
    */
   public ArrayList values(String deviceId)

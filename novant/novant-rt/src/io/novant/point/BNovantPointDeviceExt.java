@@ -8,8 +8,10 @@
 
 package io.novant.point;
 
+import java.util.*;
 import javax.baja.sys.*;
 import javax.baja.nre.annotations.*;
+import javax.baja.nre.util.Array;
 import com.tridium.ndriver.discover.*;
 import com.tridium.ndriver.point.*;
 
@@ -26,8 +28,7 @@ import io.novant.util.*;
   defaultValue = "new BNovantPointDiscoveryPreferences()",
   override = true
 )
-public class BNovantPointDeviceExt
-  extends BNPointDeviceExt
+public class BNovantPointDeviceExt extends BNPointDeviceExt
 {
 
   public static final Property discoveryPreferences = newProperty(Flags.HIDDEN, new BNovantPointDiscoveryPreferences(), null);
@@ -100,21 +101,38 @@ public class BNovantPointDeviceExt
   /** Call back for discoveryJob to get an array of discovery objects.
    *  Override point for driver specific discovery. */
   public BINDiscoveryObject[] getDiscoveryObjects(BNDiscoveryPreferences prefs)
-      throws Exception
+    throws Exception
   {
-    BNovantDevice dev = getNovantDevice();
+    try
+    {
+      BNovantDevice dev = getNovantDevice();
+      Array acc = new Array(BNovantPointDiscoveryLeaf.class);
 
-// System.out.println("### NovantClient.points");
-//     NovantClient c = new NovantClient(dev.getApiKeyPlainText());
-//     String r = c.points(dev.getDeviceId());
-// System.out.println("### " + r);
-     //
-     // TODO  get array of discovery objects
-     //
-//    Array a = new Array(??.class);
-//    for(??)
-//     a.add(new BNovantPointDiscoveryLeaf(??));
-//    return (??[])a.trim();
+      NovantClient c = new NovantClient(dev.getApiKeyPlainText());
+      ArrayList vals = c.points(dev.getDeviceId());
+      for (int i=0; i<vals.size(); i++)
+      {
+        HashMap src = (HashMap)vals.get(i);
+        String name = (String)src.get("name");
+        ArrayList pts = (ArrayList)src.get("points");
+
+        System.out.println("#   " + name);
+        for (int j=0; j<pts.size(); j++)
+        {
+          HashMap p = (HashMap)pts.get(j);
+          System.out.println("#     - " + p.get("name"));
+          acc.add(new BNovantPointDiscoveryLeaf(p));
+        }
+      }
+
+      BINDiscoveryObject[] x = (BNovantPointDiscoveryLeaf[])acc.trim();
+      System.out.println(x);
+      return x;
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
     return null;
   }
 }

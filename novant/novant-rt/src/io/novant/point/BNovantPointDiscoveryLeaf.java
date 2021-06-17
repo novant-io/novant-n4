@@ -8,30 +8,13 @@
 
 package io.novant.point;
 
-import javax.baja.control.BBooleanPoint;
-import javax.baja.control.BBooleanWritable;
-import javax.baja.control.BControlPoint;
-import javax.baja.control.BEnumPoint;
-import javax.baja.control.BEnumWritable;
-import javax.baja.control.BNumericPoint;
-import javax.baja.control.BNumericWritable;
-import javax.baja.control.BStringPoint;
-import javax.baja.control.BStringWritable;
-import javax.baja.registry.TypeInfo;
-import javax.baja.status.BStatusBoolean;
-import javax.baja.status.BStatusEnum;
-import javax.baja.status.BStatusNumeric;
-import javax.baja.status.BStatusString;
-import javax.baja.status.BStatusValue;
-import javax.baja.sys.BComponent;
-import javax.baja.sys.BEnum;
-import javax.baja.sys.BFacets;
-import javax.baja.sys.Flags;
-import javax.baja.sys.Property;
-import javax.baja.sys.Sys;
-import javax.baja.sys.Type;
+import java.util.*;
+import javax.baja.control.*;
 import javax.baja.nre.util.Array;
 import javax.baja.nre.annotations.*;
+import javax.baja.registry.TypeInfo;
+import javax.baja.status.*;
+import javax.baja.sys.*;
 
 import com.tridium.ndriver.discover.BNPointDiscoveryLeaf;
 import com.tridium.ndriver.util.SfUtil;
@@ -42,75 +25,177 @@ import com.tridium.ndriver.util.SfUtil;
  */
 @NiagaraType
 @NiagaraProperty(
-  name = "statusValue",
-  type = "BStatusValue",
-  defaultValue = "new BStatusNumeric()",
-  flags = Flags.READONLY)
-@NiagaraProperty(
-  name = "facets",
-  type = "BFacets",
-  defaultValue = "BFacets.DEFAULT",
+  name = "pointId",
+  type = "String",
+  defaultValue = "",
   flags = Flags.READONLY,
-  facets = { @Facet(name="SfUtil.KEY_MGR", value="SfUtil.MGR_UNSEEN")})
-public class BNovantPointDiscoveryLeaf
-    extends BNPointDiscoveryLeaf
+  facets = @Facet("SfUtil.incl(SfUtil.MGR_EDIT)")
+)
+@NiagaraProperty(
+  name = "pointName",
+  type = "String",
+  defaultValue = "",
+  facets = @Facet("SfUtil.incl(SfUtil.MGR_EDIT)")
+)
+@NiagaraProperty(
+  name = "kind",
+  type = "String",
+  defaultValue = "num",
+  flags = Flags.READONLY,
+  facets = @Facet("SfUtil.incl(SfUtil.MGR_EDIT)")
+)
+@NiagaraProperty(
+  name = "unit",
+  type = "String",
+  defaultValue = "",
+  facets = @Facet("SfUtil.incl(SfUtil.MGR_EDIT)")
+)
+public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
 {
 /*+ ------------ BEGIN BAJA AUTO GENERATED CODE ------------ +*/
+/*@ $io.novant.point.BNovantPointDiscoveryLeaf(4004309173)1.0$ @*/
+/* Generated Thu Jun 17 09:57:50 EDT 2021 by Slot-o-Matic (c) Tridium, Inc. 2012 */
 
 ////////////////////////////////////////////////////////////////
-// Property "statusValue"
-////////////////////////////////////////////////////////////////
-
-  /**
-   * Slot for the <code>statusValue</code> property.
-   */
-  public static final Property statusValue = newProperty(Flags.READONLY, new BStatusNumeric(),null);
-
-  /**
-   * Get the <code>statusValue</code> property.
-   */
-  public BStatusValue getStatusValue() { return (BStatusValue)get(statusValue); }
-
-  /**
-   * Set the <code>statusValue</code> property.
-   */
-  public void setStatusValue(BStatusValue v) { set(statusValue,v,null); }
-
-////////////////////////////////////////////////////////////////
-// Property "facets"
+// Property "pointId"
 ////////////////////////////////////////////////////////////////
 
   /**
-   * Slot for the <code>facets</code> property.
+   * Slot for the {@code pointId} property.
+   * @see #getPointId
+   * @see #setPointId
    */
-  public static final Property facets = newProperty(Flags.READONLY, BFacets.DEFAULT,SfUtil.incl(SfUtil.MGR_UNSEEN));
+  public static final Property pointId = newProperty(Flags.READONLY, "", SfUtil.incl(SfUtil.MGR_EDIT));
 
   /**
-   * Get the <code>facets</code> property.
+   * Get the {@code pointId} property.
+   * @see #pointId
    */
-  public BFacets getFacets() { return (BFacets)get(facets); }
+  public String getPointId() { return getString(pointId); }
 
   /**
-   * Set the <code>facets</code> property.
+   * Set the {@code pointId} property.
+   * @see #pointId
    */
-  public void setFacets(BFacets v) { set(facets,v,null); }
+  public void setPointId(String v) { setString(pointId, v, null); }
+
+////////////////////////////////////////////////////////////////
+// Property "pointName"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code pointName} property.
+   * @see #getPointName
+   * @see #setPointName
+   */
+  public static final Property pointName = newProperty(0, "", SfUtil.incl(SfUtil.MGR_EDIT));
+
+  /**
+   * Get the {@code pointName} property.
+   * @see #pointName
+   */
+  public String getPointName() { return getString(pointName); }
+
+  /**
+   * Set the {@code pointName} property.
+   * @see #pointName
+   */
+  public void setPointName(String v) { setString(pointName, v, null); }
+
+////////////////////////////////////////////////////////////////
+// Property "kind"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code kind} property.
+   * @see #getKind
+   * @see #setKind
+   */
+  public static final Property kind = newProperty(Flags.READONLY, "num", SfUtil.incl(SfUtil.MGR_EDIT));
+
+  /**
+   * Get the {@code kind} property.
+   * @see #kind
+   */
+  public String getKind() { return getString(kind); }
+
+  /**
+   * Set the {@code kind} property.
+   * @see #kind
+   */
+  public void setKind(String v) { setString(kind, v, null); }
+
+////////////////////////////////////////////////////////////////
+// Property "unit"
+////////////////////////////////////////////////////////////////
+
+  /**
+   * Slot for the {@code unit} property.
+   * @see #getUnit
+   * @see #setUnit
+   */
+  public static final Property unit = newProperty(0, "", SfUtil.incl(SfUtil.MGR_EDIT));
+
+  /**
+   * Get the {@code unit} property.
+   * @see #unit
+   */
+  public String getUnit() { return getString(unit); }
+
+  /**
+   * Set the {@code unit} property.
+   * @see #unit
+   */
+  public void setUnit(String v) { setString(unit, v, null); }
 
 ////////////////////////////////////////////////////////////////
 // Type
 ////////////////////////////////////////////////////////////////
 
+  @Override
   public Type getType() { return TYPE; }
   public static final Type TYPE = Sys.loadType(BNovantPointDiscoveryLeaf.class);
 
 /*+ ------------ END BAJA AUTO GENERATED CODE -------------- +*/
 
-  public BNovantPointDiscoveryLeaf() {}
+  /** Default ctor */
+  public BNovantPointDiscoveryLeaf()
+  {
+    // TODO: this is not a valid ctor; should we throw?
+    this.map = new HashMap();
+  }
+
+  /** Construct new object with API results */
+  public BNovantPointDiscoveryLeaf(HashMap map)
+  {
+    String id   = (String)map.get("id");
+    String name = (String)map.get("name");
+    String kind = (String)map.get("kind");
+    String unit = (String)map.get("num");
+
+    // sanity checks
+    if (id   == null) throw new RuntimeException("Missing 'id'");
+    if (name == null) throw new RuntimeException("Missing 'name'");
+    if (kind == null) kind = "num";
+    if (unit == null) unit = "";
+
+    this.setPointId(id);
+    this.setPointName(name);
+    this.setKind(kind);
+    this.setUnit(unit);
+  }
+
+  /** Get the display name of this node. */
+  public String getDiscoveryName()
+  {
+    return getPointName();
+  }
 
   /* Return TypeInfo for valid new objects - match proxy type to statusValue type. */
   public TypeInfo[] getValidDatabaseTypes()
   {
     Array a = new Array(TypeInfo.class);
-    BStatusValue sv = getStatusValue();
+    // BStatusValue sv = getStatusValue();
 
     //
     // TODO determine valid types for this leaf
@@ -150,10 +235,9 @@ public class BNovantPointDiscoveryLeaf
     // TODO - initialize values in new point
     //
 
-    cp.setFacets(getFacets());
-    cp.setProxyExt(pext);
-
-    cp.getStatusValue().setValueValue(getStatusValue().getValueValue());
+    // cp.setFacets(getFacets());
+    // cp.setProxyExt(pext);
+    // cp.getStatusValue().setValueValue(getStatusValue().getValueValue());
   }
 
   /**
@@ -171,4 +255,6 @@ public class BNovantPointDiscoveryLeaf
 
     return false;
   }
+
+  private HashMap map;
 }

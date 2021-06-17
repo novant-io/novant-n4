@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version 0.3 (working)
+* Add Point discovery support
 
 ## Version 0.2 (16-Jun-2021)
 * Fix JSON parsing of numbers using `E` notation
