@@ -202,7 +202,7 @@ public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
     String name   = (String)map.get("name");
     String kind   = (String)map.get("kind");
     Boolean write = (Boolean)map.get("writable");
-    String unit   = (String)map.get("num");
+    String unit   = (String)map.get("unit");
 
     // sanity checks
     if (id    == null) throw new RuntimeException("Missing 'id'");
@@ -218,13 +218,17 @@ public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
     this.setUnit(unit);
   }
 
-  /** Get the display name of this node. */
+  /**
+   * Get the display name of this node.
+   */
   public String getDiscoveryName()
   {
     return getPointName();
   }
 
-  /* Return TypeInfo for valid new objects - match proxy type to statusValue type. */
+  /**
+   * Return TypeInfo for valid new objects.
+   */
   public TypeInfo[] getValidDatabaseTypes()
   {
     Array acc = new Array(TypeInfo.class);
@@ -245,35 +249,34 @@ public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
     return (TypeInfo[])acc.trim();
   }
 
-  /* Call when adding new object based on this discovery leaf.  Initialize proxy. */
+  /**
+   * Callback to create new point based on discovery leaf.
+   */
   public void updateTarget(BComponent target)
   {
-    BControlPoint cp = (BControlPoint)target;
-    BNovantProxyExt pext = new BNovantProxyExt();
+    BControlPoint p = (BControlPoint)target;
+    BFacets f = p.getFacets();
+    BNovantProxyExt ext = new BNovantProxyExt();
 
-    //
-    // TODO - initialize values in new point
-    //
+    String unit = getUnit();
+    if (unit.length() > 0) f = BFacets.make(f, "unit", BString.make(unit));
 
-    // cp.setFacets(getFacets());
-    // cp.setProxyExt(pext);
-    // cp.getStatusValue().setValueValue(getStatusValue().getValueValue());
+    ext.setPointId(getPointId());
+    p.setProxyExt(ext);
+    p.setFacets(f);
   }
 
   /**
-   * Return true if the specified component is an existing representation
+   * Return true if the given point is an existing representation
    * of this discovery object.
    */
   public boolean isExisting(BComponent target)
   {
-    if(!(target instanceof BControlPoint)) return false;
-    BControlPoint cp = (BControlPoint)target;
-    BNovantProxyExt pext = (BNovantProxyExt)cp.getProxyExt();
-    //
-    // TODO - return true if specified component represents this leaf
-    //
+    if (!(target instanceof BControlPoint)) return false;
 
-    return false;
+    BControlPoint p = (BControlPoint)target;
+    BNovantProxyExt ext = (BNovantProxyExt)p.getProxyExt();
+    return ext.getPointId().equals(getPointId());
   }
 
   private HashMap map;
