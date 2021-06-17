@@ -1,6 +1,8 @@
 # Changelog
 
-## Version 0.3 (working)
+## Version 0.4 (working)
+
+## Version 0.3 (17-Jun-2021)
 * Add Point discovery support
 * Fix JsonReader support for unicode strings
 
