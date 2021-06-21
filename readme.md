@@ -14,7 +14,7 @@ It currently supports:
 
 To install the Novant Driver on N4:
 
-  * Download the latest `novant-rt.jar`: [Version 0.3](rel)
+  * Download the latest `novant-rt.jar`: [Version 0.3][rel]
   * Move `novant-rt.jar` into the `modules/` folder for N4 instance(s)
   * Restart your station and Workbench instance
   * Drag `NovantNetwork` from the `novant` palette into `Config` > `Drivers`
