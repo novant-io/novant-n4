@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version 0.4 (working)
+* Fix Point discovery to correctly map `units` facets
 
 ## Version 0.3 (17-Jun-2021)
 * Add Point discovery support

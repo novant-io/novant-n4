@@ -9,15 +9,19 @@
 package io.novant.point;
 
 import java.util.*;
+
 import javax.baja.control.*;
 import javax.baja.nre.util.Array;
 import javax.baja.nre.annotations.*;
 import javax.baja.registry.TypeInfo;
+import javax.baja.units.*;
 import javax.baja.status.*;
 import javax.baja.sys.*;
 
 import com.tridium.ndriver.discover.BNPointDiscoveryLeaf;
 import com.tridium.ndriver.util.SfUtil;
+
+import io.novant.util.*;
 
 /**
  * BNovantPointDiscoveryLeaf is container class for point elements to
@@ -259,7 +263,7 @@ public class BNovantPointDiscoveryLeaf extends BNPointDiscoveryLeaf
     BNovantProxyExt ext = new BNovantProxyExt();
 
     String unit = getUnit();
-    if (unit.length() > 0) f = BFacets.make(f, "unit", BString.make(unit));
+    if (unit.length() > 0) f = BFacets.make(f, "units", NovantUnits.get(unit));
 
     ext.setPointId(getPointId());
     p.setProxyExt(ext);
